@@ -37,3 +37,6 @@ var/
 new strategies/
 tmp/
 *.mp4
+
+# Docs stay local
+docs/
