@@ -1,0 +1,82 @@
+/**
+ * Blocking alerts.
+ *
+ * A critical alert gets the action inline rather than a link to somewhere
+ * else. The one that matters here stops trading entirely, so the distance
+ * between reading it and resolving it should be one click.
+ */
+
+.alerts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1px;
+}
+
+.alerts li {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--rule-strong);
+  background: var(--surface-raised);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+
+.alerts li[data-severity="critical"] {
+  border-left-color: var(--danger);
+  background: var(--danger-wash);
+}
+
+.alerts li[data-severity="warning"] {
+  border-left-color: var(--state-degraded);
+}
+
+.alerts li[data-severity="info"] {
+  border-left-color: var(--rule-strong);
+  color: var(--text-secondary);
+}
+
+.alert-message {
+  display: block;
+  max-width: 96ch;
+}
+
+.alert-action {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+/* Reads as a caveat on the button next to it, not as body copy. */
+.alert-note {
+  margin: 0;
+  max-width: 68ch;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* The outcome of the last click. Green for done, red for refused - and the
+   refusal text is the exchange's or the engine's own words, because "failed"
+   would throw away the part that says what to do next. */
+.action-result {
+  margin: var(--space-2) 0 0;
+  padding: var(--space-2) var(--space-3);
+  border-left: 2px solid currentColor;
+  background: var(--surface-sunken);
+  font-family: var(--font-num);
+  font-size: var(--text-xs);
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.action-result[data-ok="true"] {
+  color: var(--pnl-pos);
+}
+
+.action-result[data-ok="false"] {
+  color: var(--danger);
+}

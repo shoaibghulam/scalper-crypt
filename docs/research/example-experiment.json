@@ -1,0 +1,17 @@
+{
+  "symbols": ["BTCUSDT", "ETHUSDT", "XRPUSDT"],
+  "timeframe": "5m",
+  "days": 60,
+  "search": {
+    "population": 64,
+    "generations": 8,
+    "optimization_trials": 20,
+    "seed": 42,
+    "capital": 1000,
+    "min_trades": 20,
+    "ml_filter": false,
+    "costs": {"fee": 0.0005, "slippage": 0.0002, "spread": 0.0002, "require_funding": true},
+    "safety": {"max_daily_loss": 0.05, "max_drawdown": 0.20, "max_position_size": 0.25,
+               "max_leverage": 1, "max_consecutive_losses": 8}
+  }
+}

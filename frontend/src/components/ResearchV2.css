@@ -1,0 +1,190 @@
+/* Research v2 builds on the shared .annual-research system; only what is
+   genuinely new to the offline workflow lives here. */
+
+.v2-research .research-storage {
+  border-left-color: var(--env-accent);
+}
+
+/* Marks a coin already held locally, and a result answered from cache. Both
+   mean "this cost nothing", which is the one fact this tab exists to show. */
+.v2-tag {
+  margin-left: 8px;
+  padding: 2px 7px;
+  border: 1px solid var(--env-accent);
+  border-radius: 10px;
+  color: var(--env-accent);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.v2-research .research-coin-list label {
+  justify-content: flex-start;
+}
+
+.v2-research td,
+.v2-research th {
+  padding: 9px 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.v2-research thead th {
+  border-bottom: 1px solid var(--rule-strong);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.v2-research tbody tr + tr td {
+  border-top: 1px solid var(--rule);
+}
+
+.v2-research .research-job-panel p {
+  font-variant-numeric: tabular-nums;
+}
+
+.v2-research .research-job-panel small,
+.v2-research > small {
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.v2-research ul[role="alert"] {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--pnl-neg);
+  font-size: 12px;
+}
+
+/* Coin selection is its own step now: it feeds both the download and the
+   backtest, so it cannot live inside either one. */
+.v2-coin-section .research-coin-picker {
+  grid-row: span 2;
+}
+
+.v2-bulk {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.v2-download-summary {
+  display: grid;
+  gap: 6px;
+  align-content: center;
+  padding: 16px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--surface-base);
+}
+
+.v2-download-summary strong {
+  font-size: 26px;
+  font-variant-numeric: tabular-nums;
+}
+
+.v2-download-summary span,
+.v2-download-summary small {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.v2-download .research-start-row {
+  align-items: center;
+  border-top: none;
+  padding-top: 0;
+}
+
+/* The results table carries more columns than it used to; the legend below it
+   is what stops "net -164" from being read as "the account went to -64". */
+.v2-legend {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 18px;
+  margin: 14px 0 6px;
+  padding: 16px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--surface-base);
+}
+
+.v2-legend dt {
+  font-weight: 600;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.v2-legend dd {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.v2-research td small {
+  color: var(--text-secondary);
+  font-size: 11px;
+}
+
+@media (max-width: 700px) {
+  .v2-legend {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .v2-legend dd {
+    margin-bottom: 8px;
+  }
+}
+
+/* A job started elsewhere blocks this page; the banner exists so that is
+   visible and actionable rather than arriving as a 409 with no explanation. */
+.v2-foreign {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 16px 18px;
+  border: 1px solid var(--env-accent);
+  border-left-width: 4px;
+  border-radius: 8px;
+  background: var(--surface-base);
+}
+
+.v2-foreign p {
+  margin: 4px 0 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.v2-foreign small {
+  display: block;
+  margin-top: 6px;
+  max-width: 62ch;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Said before the run, not discovered one coin at a time after the download.
+   Amber rather than red: a deliberate restriction is not a fault. */
+.v2-note {
+  margin: 4px 0 0;
+  padding: 12px 14px;
+  border: 1px solid var(--rule-strong);
+  border-left: 4px solid var(--env-accent);
+  border-radius: 6px;
+  background: var(--surface-base);
+  font-size: 13px;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.v2-research .research-strategy-option .v2-tag {
+  margin-left: 6px;
+}

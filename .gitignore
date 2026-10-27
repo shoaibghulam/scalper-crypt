@@ -1,0 +1,39 @@
+# Secrets
+.env
+*.key
+master.key
+
+# Databases
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+data/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# Node
+node_modules/
+dist/
+
+# Engine runtime
+engine.lock
+logs/
+
+# Engine state: live position records, rewritten continuously.
+var/
+
+# Local Claude Code harness
+.claude/
+
+# Third-party reference material and scratch files, not ours to redistribute
+new strategies/
+tmp/
+*.mp4

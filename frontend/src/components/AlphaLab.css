@@ -1,0 +1,53 @@
+.alpha-lab { display: grid; gap: 20px; min-width: 0; }
+.alpha-lab form, .alpha-results { display: grid; gap: 16px; }
+.alpha-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; padding: 16px; border: 1px solid var(--rule); }
+.alpha-lab label { display: grid; gap: 8px; }
+.alpha-lab input, .alpha-lab select, .alpha-lab button { min-height: 44px; padding: 10px; border: 1px solid var(--rule); border-radius: 6px; }
+.alpha-lab button { justify-self: start; }
+.alpha-lab button:disabled { opacity: .55; }
+.alpha-finalist { display: grid; gap: 12px; padding: 16px; border: 1px solid var(--rule); border-radius: 8px; }
+.alpha-formula { overflow-wrap: anywhere; }
+.alpha-lab th, .alpha-lab td { text-align: left; padding: 12px; white-space: nowrap; }
+.alpha-lab progress { width: min(100%, 600px); }
+.alpha-lab :focus-visible { outline: 2px solid var(--env-accent); outline-offset: 3px; }
+.alpha-lab { max-width: 1440px; margin-inline: auto; }
+.alpha-lab .alpha-step { display: grid; gap: 16px; min-width: 0; margin: 0; padding: 20px; border: 1px solid var(--rule); border-radius: 12px; }
+.alpha-step legend { padding: 0 8px; font-weight: 650; font-size: 1.05rem; }
+.alpha-lab .alpha-fields { border: 0; margin: 0; padding: 16px 0; }
+.alpha-hardware { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 20px; padding: 12px 16px; background: var(--surface, #f4f6fa); border: 1px solid var(--rule); border-radius: 8px; font-size: .9rem; }
+.alpha-hardware span, .alpha-lab small, .alpha-explainer span { color: var(--text-secondary); }
+.alpha-popular { display: flex; flex-wrap: wrap; gap: 10px; }
+.alpha-lab .alpha-popular button { display: grid; gap: 4px; min-width: 108px; text-align: left; padding: 12px 16px; }
+.alpha-popular span { font-size: .8rem; }
+.alpha-coin-picker { display: grid; grid-template-columns: minmax(180px, 1fr) minmax(240px, 2fr); gap: 16px; align-items: start; }
+.alpha-lab .alpha-coin-picker select { width: 100%; height: 168px; padding: 4px; }
+.alpha-coin-picker option { padding: 8px 12px; border-radius: 4px; }
+.alpha-selection { padding: 12px 16px; border-left: 3px solid var(--env-accent); background: var(--surface, #f4f6fa); border-radius: 4px; }
+.alpha-lab .alpha-checkbox { display: flex; align-items: center; gap: 10px; }
+.alpha-lab .alpha-checkbox input { min-height: 20px; width: 20px; height: 20px; flex-shrink: 0; }
+.alpha-multi-list { max-height: 220px; overflow-y: auto; border: 1px solid var(--rule); border-radius: 6px; padding: 8px; }
+.alpha-multi-list label { min-height: 40px; }
+.alpha-selection strong { overflow-wrap: anywhere; }
+.alpha-presets, .alpha-explainer, .alpha-result-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.alpha-lab .alpha-presets button { justify-self: stretch; text-align: left; display: grid; align-content: start; gap: 10px; padding: 18px; }
+.alpha-presets span, .alpha-presets small { line-height: 1.5; }
+.alpha-lab button[aria-pressed="true"] { border: 2px solid var(--env-accent); background: var(--surface, #f4f6fa); box-shadow: inset 0 0 0 1px var(--env-accent); }
+.alpha-advanced { border: 1px solid var(--rule); border-radius: 8px; padding: 16px; }
+.alpha-lab summary { cursor: pointer; min-height: 32px; padding-block: 6px; font-weight: 600; }
+.alpha-advanced summary span { color: var(--text-secondary); font-weight: 400; }
+.alpha-advanced > p { padding-top: 12px; }
+.alpha-launch { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: 16px; border: 1px solid var(--rule); padding: 20px; border-radius: 12px; }
+.alpha-lab .alpha-start { background: var(--text-primary, #182536); color: var(--surface-raised, white); font-weight: 650; padding: 14px 24px; }
+.alpha-explainer > div { display: grid; gap: 6px; font-size: .9rem; padding: 12px; border-top: 2px solid var(--rule); }
+.alpha-result-cards > div { display: grid; gap: 8px; padding: 16px; background: var(--surface, #f4f6fa); border-radius: 8px; }
+.alpha-result-cards strong { font-size: 1.4rem; font-variant-numeric: tabular-nums; }
+.alpha-verdict { padding: 12px 16px; border-left: 3px solid var(--text-secondary); }
+.alpha-verdict[data-passed="true"] { border-color: var(--pnl-pos, #168454); }
+@media (max-width: 720px) {
+  .alpha-lab.annual-research { padding: 16px; }
+  .alpha-coin-picker, .alpha-presets, .alpha-explainer, .alpha-result-cards { grid-template-columns: 1fr; }
+  .alpha-lab .alpha-step { padding: 14px; }
+  .alpha-launch { align-items: stretch; }
+  .alpha-lab .alpha-start { width: 100%; }
+  .alpha-advanced summary span { display: block; padding-top: 6px; }
+}

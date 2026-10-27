@@ -1,0 +1,76 @@
+/* Positions this engine did not open: present, but visibly not ours. */
+.external-positions {
+  margin-block: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px dashed var(--line, #c9c9c9);
+  border-radius: 0.5rem;
+}
+
+.external-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.6rem;
+}
+
+.external-heading h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.external-note {
+  font-size: 0.8rem;
+  opacity: 0.75;
+}
+
+.external-scroll {
+  overflow-x: auto;
+}
+
+.external-positions table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9rem;
+}
+
+.external-positions th,
+.external-positions td {
+  padding: 0.35rem 0.6rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.external-positions thead th,
+.external-positions tbody th {
+  text-align: left;
+}
+
+.external-positions thead th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+
+.external-positions tbody tr + tr td,
+.external-positions tbody tr + tr th {
+  border-top: 1px solid var(--line, #ececec);
+}
+
+.external-positions td[data-side="LONG"] {
+  color: var(--profit, #1b7f4c);
+}
+
+.external-positions td[data-side="SHORT"] {
+  color: var(--loss, #b3261e);
+}
+
+.external-profit {
+  color: var(--profit, #1b7f4c);
+}
+
+.external-loss {
+  color: var(--loss, #b3261e);
+}

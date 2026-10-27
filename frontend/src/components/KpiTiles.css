@@ -1,0 +1,93 @@
+.kpis {
+  display: grid;
+  /* Fixed minimum so tiles never reflow when a value gains a digit. */
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  border-bottom: 1px solid var(--rule);
+}
+
+.kpi {
+  padding: var(--space-3) var(--space-4);
+  border-right: 1px solid var(--rule);
+  display: grid;
+  gap: 2px;
+  align-content: start;
+}
+
+.kpi:last-child {
+  border-right: none;
+}
+
+.kpi-label {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.kpi-value {
+  font-family: var(--font-num);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-xl);
+  line-height: 1.15;
+  color: var(--text-primary);
+}
+
+.kpi-value[data-tone="pos"] {
+  color: var(--pnl-pos);
+}
+
+.kpi-value[data-tone="neg"] {
+  color: var(--pnl-neg);
+}
+
+.kpi-value[data-tone="flat"] {
+  color: var(--pnl-flat);
+}
+
+.kpi-sub {
+  font-family: var(--font-num);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.kpi-glyph {
+  font-size: var(--text-sm);
+  margin-right: 4px;
+}
+
+/* Bot fleet segmented bar. The error segment keeps a minimum width so a single
+   failing bot cannot become invisible next to twenty healthy ones. */
+.kpi-segments {
+  display: flex;
+  height: 4px;
+  gap: 2px;
+  margin-top: var(--space-1);
+}
+
+.kpi-segment {
+  height: 100%;
+  border-radius: 1px;
+  min-width: 3px;
+}
+
+.kpi-segment[data-kind="running"] {
+  background: var(--state-live);
+}
+
+.kpi-segment[data-kind="stopped"] {
+  background: var(--text-muted);
+}
+
+.kpi-segment[data-kind="error"] {
+  background: var(--danger);
+}
+
+/* Margin posted against open positions, versus what is left to open more. */
+.kpi-segment[data-kind="used"] {
+  background: var(--env-accent);
+}
+
+.kpi-segment[data-kind="free"] {
+  background: var(--rule-strong);
+}

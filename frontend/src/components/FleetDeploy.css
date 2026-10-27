@@ -1,0 +1,64 @@
+/* Fleet Deploy: the total has to read louder than the form that produces it. */
+.fleet-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.75rem 1rem;
+  margin-block: 1rem;
+}
+
+.fleet-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+}
+
+.fleet-total {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 0.5rem 1.5rem;
+  margin-block: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--line, #d8d8d8);
+  border-radius: 0.5rem;
+}
+
+.fleet-total div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.fleet-total dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+
+.fleet-total dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  font-size: 1.05rem;
+}
+
+/* The one number an operator must not skim past. */
+.fleet-total-headline dd {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--loss, #b3261e);
+}
+
+.fleet-ack {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  margin-block: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.fleet-result ul {
+  margin: 0.5rem 0;
+  padding-left: 1.2rem;
+  font-size: 0.85rem;
+}

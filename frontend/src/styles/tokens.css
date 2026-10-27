@@ -1,0 +1,156 @@
+/*
+ * Design tokens.
+ *
+ * Two things are deliberately swappable here, because both are safety
+ * features rather than preferences.
+ *
+ * The environment accent runs through the whole chrome, not a dismissible
+ * banner. The failure mode being defended against is an operator who thinks
+ * they are on testnet. Both directions are dangerous, so live is loud and test
+ * is loud, just differently.
+ *
+ * The profit and loss palette is swappable because red and green is the worst
+ * possible pair for the ~8 percent of men with a colour vision deficiency, and
+ * the convention is too load-bearing in finance to simply abandon. So colour is
+ * never the only signal: every value also carries a sign and a direction glyph.
+ */
+
+:root {
+  /* Surfaces. A cool near-black, not pure black: pure black against bright
+     numerals produces halation that is tiring to read for hours. */
+  --surface-base: #0a0d12;
+  --surface-raised: #10141b;
+  --surface-sunken: #070a0e;
+  --surface-hover: #161b24;
+
+  /* Hairlines instead of card borders. Dense layouts get noisy fast when every
+     grouping is a box with a border and a shadow. */
+  --rule: rgba(255, 255, 255, 0.07);
+  --rule-strong: rgba(255, 255, 255, 0.14);
+
+  --text-primary: #e7eaf0;
+  --text-secondary: #99a2b4;
+  --text-muted: #626b7d;
+
+  /* Profit and loss. Overridden wholesale by the colourblind palette. */
+  --pnl-pos: #3ecf8e;
+  --pnl-neg: #f2555a;
+  --pnl-flat: #8b94a6;
+  --pnl-pos-wash: rgba(62, 207, 142, 0.14);
+  --pnl-neg-wash: rgba(242, 85, 90, 0.14);
+
+  /* Connection and feed states. Five, not two: a feed can be connected while
+     one symbol is stale, and those are different emergencies. */
+  --state-live: #3ecf8e;
+  --state-degraded: #e0a82e;
+  --state-down: #f2555a;
+
+  --danger: #f2555a;
+  --danger-wash: rgba(242, 85, 90, 0.12);
+
+  /* Environment accent. Set per mode on the root element. */
+  --env-accent: #e0a82e;
+  --env-wash: rgba(224, 168, 46, 0.12);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+
+  --radius: 3px;
+
+  --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-num: "JetBrains Mono", "SF Mono", "Cascadia Mono", "Consolas", monospace;
+
+  --text-xs: 0.6875rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.875rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.75rem;
+
+  --duration-flash: 420ms;
+}
+
+/* Orange for test environments is the widely used convention. */
+:root[data-env="testnet"] {
+  --env-accent: #e0a82e;
+  --env-wash: rgba(224, 168, 46, 0.12);
+}
+
+/* Paper trades live data, so it gets its own identity rather than borrowing
+   either neighbour. */
+:root[data-env="paper"] {
+  --env-accent: #2bb3c4;
+  --env-wash: rgba(43, 179, 196, 0.12);
+}
+
+:root[data-env="live"] {
+  --env-accent: #f2555a;
+  --env-wash: rgba(242, 85, 90, 0.14);
+}
+
+/* Blue and orange survive every common form of colour vision deficiency and
+   stay distinguishable in greyscale. */
+:root[data-pnl-palette="cvd"] {
+  --pnl-pos: #4d9fff;
+  --pnl-neg: #ff8c42;
+  --pnl-pos-wash: rgba(77, 159, 255, 0.16);
+  --pnl-neg-wash: rgba(255, 140, 66, 0.16);
+  --state-live: #4d9fff;
+}
+
+/*
+ * Light mode is a real palette, not an inversion.
+ *
+ * The first pass failed here: flat values rendered mid-grey on white, so the
+ * largest numbers on the screen were also the faintest. In a console whose
+ * entire job is numbers, that is the wrong thing to make quiet. Every value
+ * colour below clears 4.5:1 against its surface, and flat is near-black rather
+ * than grey, because zero is a real reading and not an absence.
+ */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --surface-base: #f7f8fa;
+    --surface-raised: #ffffff;
+    --surface-sunken: #eceef2;
+    --surface-hover: #f0f2f6;
+    --rule: rgba(16, 20, 27, 0.12);
+    --rule-strong: rgba(16, 20, 27, 0.22);
+    --text-primary: #0d1117;
+    --text-secondary: #424b5a;
+    --text-muted: #5c6472;
+    --pnl-pos: #0a6e4a;
+    --pnl-neg: #b3161c;
+    --pnl-flat: #1c2230;
+    --pnl-pos-wash: rgba(10, 110, 74, 0.1);
+    --pnl-neg-wash: rgba(179, 22, 28, 0.1);
+    --state-live: #0a6e4a;
+    --state-degraded: #8a5a00;
+    --state-down: #b3161c;
+    --danger: #b3161c;
+    --danger-wash: rgba(179, 22, 28, 0.08);
+  }
+
+  :root:not([data-theme="dark"])[data-env="testnet"] {
+    --env-accent: #8a5a00;
+    --env-wash: rgba(138, 90, 0, 0.1);
+  }
+
+  :root:not([data-theme="dark"])[data-env="paper"] {
+    --env-accent: #04697a;
+    --env-wash: rgba(4, 105, 122, 0.1);
+  }
+
+  :root:not([data-theme="dark"])[data-env="live"] {
+    --env-accent: #b3161c;
+    --env-wash: rgba(179, 22, 28, 0.1);
+  }
+
+  :root:not([data-theme="dark"])[data-pnl-palette="cvd"] {
+    --pnl-pos: #0b52b0;
+    --pnl-neg: #9a4a00;
+    --state-live: #0b52b0;
+  }
+}

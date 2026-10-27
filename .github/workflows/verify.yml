@@ -1,0 +1,44 @@
+name: Verify
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Backend dependencies
+        working-directory: backend
+        run: |
+          python -m pip install -r requirements-windows.lock
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m pip install --no-deps -e .
+      - name: Backend checks
+        working-directory: backend
+        run: |
+          python -m ruff check src tests
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m mypy src
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m pytest --cov=scalper --cov-report=term
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Frontend dependencies
+        working-directory: frontend
+        run: npm ci
+      - name: Frontend checks
+        working-directory: frontend
+        run: |
+          npm run build
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm run lint
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npx --no-install vitest run
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

@@ -1,0 +1,208 @@
+.tpsl {
+  display: grid;
+  gap: 2px;
+  min-width: 190px;
+  --tpsl-accent: var(--text-secondary);
+}
+
+.tpsl[data-phase="near-target"],
+.tpsl[data-phase="target-reached"] { --tpsl-accent: var(--pnl-pos); }
+.tpsl[data-phase="near-stop"],
+.tpsl[data-phase="stop-reached"] { --tpsl-accent: var(--pnl-neg); }
+
+.tpsl-endpoints {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  margin-bottom: 3px;
+  color: var(--text-muted);
+}
+.tpsl-endpoints span:first-child { color: var(--pnl-neg); }
+.tpsl-endpoints span:last-child { color: var(--pnl-pos); }
+.tpsl-status {
+  margin: 4px 0 0;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--tpsl-accent);
+}
+.tpsl-carrier {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  pointer-events: none;
+  transform: translateX(calc(var(--pos, 0) * 1%));
+  transition: transform 650ms cubic-bezier(.22, 1, .36, 1);
+  z-index: 2;
+}
+.tpsl-travel {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  border-radius: 4px;
+  background: var(--pnl-neg);
+  opacity: .55;
+  transition: left 650ms ease-out, width 650ms ease-out;
+}
+.tpsl-travel[data-profit="true"] { background: var(--pnl-pos); }
+
+.tpsl-track {
+  position: relative;
+  height: 14px;
+  border-radius: 1px;
+  /* The two zones are sized by the real price distances, so a wide reward
+     genuinely looks wide. */
+  display: flex;
+  overflow: clip;
+  overflow-clip-margin: 16px;
+}
+
+.tpsl-zone-risk {
+  background: var(--pnl-neg-wash);
+  border-left: 2px solid var(--pnl-neg);
+}
+
+.tpsl-zone-reward {
+  background: var(--pnl-pos-wash);
+  border-right: 2px solid var(--pnl-pos);
+}
+
+.tpsl-entry {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 1px;
+  background: var(--text-secondary);
+}
+
+.tpsl-mark {
+  position: absolute;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--text-primary);
+  border: 2px solid var(--surface-base);
+  left: 0;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 2px var(--surface-raised);
+}
+.tpsl-mark::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border: 1px solid var(--tpsl-accent);
+  border-radius: 50%;
+  opacity: 0;
+}
+.tpsl[data-live="true"]:not([data-phase="tracking"]) .tpsl-mark::after {
+  animation: tpsl-ripple 1.4s ease-out 3;
+}
+.tpsl:not([data-phase="tracking"]) .tpsl-mark {
+  background: var(--tpsl-accent);
+}
+@keyframes tpsl-ripple {
+  from { transform: scale(.6); opacity: .65; }
+  to { transform: scale(1.8); opacity: 0; }
+}
+
+.tpsl-liq {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  background: var(--danger);
+}
+
+.tpsl-liq[data-inside="true"] {
+  width: 3px;
+  box-shadow: 0 0 0 2px var(--danger-wash);
+}
+
+.tpsl-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.tpsl-toward-stop {
+  color: var(--pnl-neg);
+}
+
+.tpsl-toward-target {
+  color: var(--pnl-pos);
+}
+
+.tpsl-warning {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/**
+ * The pointer.
+ *
+ * A thin line alone was ambiguous: against an unlabelled track it does not say
+ * which level it is heading for. The caret gives the position a direction and
+ * the line beneath it keeps the precision, and the sentence underneath states
+ * the same thing in words so nothing depends on reading a few pixels.
+ */
+.tpsl-pointer {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 0;
+  height: 0;
+  transform: translateX(-50%);
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid var(--text-primary);
+}
+
+.tpsl-carrier[data-nearer="stop"] .tpsl-pointer {
+  border-top-color: var(--pnl-neg);
+}
+
+.tpsl-carrier[data-nearer="target"] .tpsl-pointer {
+  border-top-color: var(--pnl-pos);
+}
+
+.tpsl-nearer {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin: 2px 0 0;
+  font-family: var(--font-num);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.tpsl-nearer[data-nearer="stop"] {
+  color: var(--pnl-neg);
+}
+
+.tpsl-nearer[data-nearer="target"] {
+  color: var(--pnl-pos);
+}
+
+/* Progress in R, held back so it does not compete with the distance. */
+.tpsl-progress {
+  margin-left: auto;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.tpsl[data-live="false"] { --tpsl-accent: var(--text-muted); }
+.tpsl[data-live="false"] .tpsl-carrier,
+.tpsl[data-live="false"] .tpsl-travel { transition: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tpsl-carrier, .tpsl-travel { transition: none; }
+  .tpsl .tpsl-mark::after { animation: none !important; }
+}

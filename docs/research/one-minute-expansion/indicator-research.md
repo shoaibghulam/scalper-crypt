@@ -1,0 +1,31 @@
+# Ten indicator research hypotheses
+
+Sources below were opened and read on 2026-09-19. They explain indicators and historical chart interpretation, not profitable one-minute crypto strategies. These are our fixed-rule adaptations; no profitability evidence is claimed. Changing a parameter constitutes another experiment. TSI, TRIX and CMO may remain highly correlated with existing momentum candidates.
+
+## Shared implementation and execution
+
+`minute_indicators.py` receives validated closed one-minute candles. The wrapper requires 200 bars; no forming bar, future pivot, centered series or future execution price is used. Signals are evaluated at the last closed bar. EMA uses alpha=2/(n+1), seeded at the first supplied observation. WMA weights oldest-to-newest 1..n. Warm-up results depend on the supplied history window, so backtests must use the same window as live evaluation. No indicator-specific exit or timeout exit is installed: the wrapper retains its common stop max(1.5 ATR14, 0.45% entry) and 2R target before fees. Entries still require execution/risk gates. Setup-expiry bars below refer only to pending entry setups.
+
+## Exact installed rules
+
+1. **Aroon25:** use current and previous25 bars; age of newest tied high/low gives 100*(25-age)/25. Both below50 arm a setup for10 bars. Long requires Up=100 and Down<30, short reverses. First signal consumes the arm. This adapts the source's consolidation-to-trend interpretation. [StockCharts Aroon](https://chartschool.stockcharts.com/table-of-contents/technical-indicators-and-overlays/technical-indicators/aroon).
+
+2. **Vortex14:** sum(abs(high-previous low))/sum(TR), with the negative line using abs(low-previous high). Long arm occurs when negative VI crosses below0.90; within5 bars positive VI must cross above1.10 while negative remains below0.90. Short mirrors; consume on trigger. These thresholds follow the source, but the expiry and 1m use are adaptations. [StockCharts Vortex](https://chartschool.stockcharts.com/table-of-contents/technical-indicators-and-overlays/technical-indicators/vortex-indicator).
+
+3. **TSI25,13:** 100*EMA13(EMA25(close change))/EMA13(EMA25(abs change)); zero denominator gives zero. Signal EMA7. Long crosses signal upward above zero and at least one of the preceding three slopes is negative. Short mirrors. Signal length and prior-slope filter are adaptations. [StockCharts TSI](https://chartschool.stockcharts.com/table-of-contents/technical-indicators-and-overlays/technical-indicators/true-strength-index).
+
+4. **TRIX15:** one-bar percentage change of EMA15(EMA15(EMA15(close))). Long crosses zero upward above EMA9(TRIX); short reverse. Triple smoothing and EMA9 follow the source; combined entry is our adaptation. [StockCharts TRIX](https://chartschool.stockcharts.com/table-of-contents/technical-indicators-and-overlays/technical-indicators/trix).
+
+5. **Ultimate Oscillator:** BP=close-min(low,prior close), TR=max(high,prior close)-min(low,prior close). UO=100*(4*sum7(BP)/sum7(TR)+2*sum14(BP)/sum14(TR)+sum28(BP)/sum28(TR))/7. Zero range ratios use0.5. Strict price pivots need two bars on each side and become available only after both right bars close. Latest two lows must be5–30 bars apart, lower in price, higher in UO with first UO<30. Trigger first UO cross above intervening UO maximum after second pivot is known, through12 bars after the pivot; invalidate on a new lower low. Short mirrors with UO>70 and intervening minimum. Pivot timing and expiry are our mechanical adaptation. [StockCharts Ultimate Oscillator](https://chartschool.stockcharts.com/table-of-contents/technical-indicators-and-overlays/technical-indicators/ultimate-oscillator).
+
+6. **CMO20:** 100*sum(close changes)/sum(abs changes), zero denominator gives zero. Long crosses upward through -50; short downward through50. This adapts published extremes into recovery triggers. [Fidelity CMO](https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/cmo).
+
+7. **Fisher10:** median=(high+low)/2; normalize current median against10-bar median range to[-1,1] (flat range=0), EMA5, clip to[-.999,.999], then 0.5*ln((1+x)/(1-x)). Long slope turns positive below zero on preceding bar, then current close exceeds preceding high; short mirrors. Confirmation and length10 are adaptations. This follows Schwab's described transform, without additional recursive Fisher smoothing used in other implementations. [Schwab FisherTransform](https://toslc.thinkorswim.com/center/reference/Tech-Indicators/studies-library/E-F/FisherTransform).
+
+8. **HMA20:** WMA4(2*WMA10(close)-WMA20(close)), flooring square root. Long turns upward after two declining slopes and close>HMA; short mirrors. Hull explicitly favors turns rather than crossover signals; period and confirmation are ours. [Alan Hull original explanation](https://alanhull.com/the-hull-moving-average/).
+
+9. **Force correction:** Force2=EMA2((close-prior close)*base volume). Long crosses zero upward with rising EMA22(close); short mirrors. This adapts the source's Elder correction-completion approach to minute bars. Use consistent exchange base volume. [StockCharts Force Index](https://chartschool.stockcharts.com/table-of-contents/technical-indicators-and-overlays/technical-indicators/force-index).
+
+10. **Mass bulge:** sum25(EMA9(high-low)/EMA9(EMA9(high-low))); zero denominator ratio=1. Crossing above27 arms for30 bars, recording direction of close versus20 bars earlier. Crossing below26.5 starts a5-bar confirmation window including that bar. Following prior decline, long requires close>previous high; following advance, short close<previous low. Consume first signal. Thresholds follow Dorsey's source; direction measurement, expiry and price confirmation are ours. [StockCharts Mass Index](https://chartschool.stockcharts.com/table-of-contents/technical-indicators-and-overlays/technical-indicators/mass-index).
+
+DPO was considered and excluded: its historical plotted values require later SMA observations. Reading that plot as contemporaneous entry data would introduce lookahead. [StockCharts DPO](https://chartschool.stockcharts.com/table-of-contents/technical-indicators-and-overlays/technical-indicators/detrended-price-oscillator-dpo).

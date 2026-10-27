@@ -1,0 +1,125 @@
+.positions {
+  padding: var(--space-4);
+}
+
+.positions-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.positions-head h2 {
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+.positions-count {
+  font-family: var(--font-num);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.positions table th,
+.positions table td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--rule);
+  white-space: nowrap;
+}
+
+.positions table tbody tr:hover {
+  background: var(--surface-hover);
+}
+
+.col-num {
+  text-align: right;
+}
+
+.cell-symbol {
+  font-weight: 600;
+}
+
+.cell-bot {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+}
+
+.side {
+  font-family: var(--font-num);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* Direction is carried by the word and the caret, never by colour alone. */
+.side[data-side="LONG"] {
+  color: var(--pnl-pos);
+}
+
+.side[data-side="SHORT"] {
+  color: var(--pnl-neg);
+}
+
+.leverage {
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  margin-left: 4px;
+}
+
+.pnl[data-tone="pos"] {
+  color: var(--pnl-pos);
+}
+
+.pnl[data-tone="neg"] {
+  color: var(--pnl-neg);
+}
+
+.pnl[data-tone="flat"] {
+  color: var(--pnl-flat);
+}
+
+.pnl-roe {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.unarmed {
+  color: var(--danger);
+  font-weight: 700;
+  font-size: var(--text-xs);
+}
+
+.empty {
+  border: 1px dashed var(--rule-strong);
+  border-radius: var(--radius);
+  padding: var(--space-6) var(--space-5);
+  text-align: center;
+  color: var(--text-secondary);
+  display: grid;
+  gap: var(--space-2);
+  justify-items: center;
+}
+
+.empty h3 {
+  font-size: var(--text-base);
+  color: var(--text-primary);
+}
+
+.empty p {
+  margin: 0;
+  max-width: 52ch;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+
+.empty code {
+  font-family: var(--font-num);
+  font-size: var(--text-xs);
+  background: var(--surface-sunken);
+  padding: 1px 5px;
+  border-radius: var(--radius);
+  color: var(--text-primary);
+}

@@ -1,0 +1,203 @@
+/**
+ * The bot fleet.
+ *
+ * A failing bot is given a red rule and an unmissable error block, because the
+ * failure this panel was built for was silence: bots that could not trade were
+ * indistinguishable from bots that had nothing to do, and both looked like an
+ * empty screen.
+ */
+
+.fleet {
+  padding: var(--space-4);
+}
+
+.fleet-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.fleet-head h2 {
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+.fleet-count {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.fleet-failing {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+.fleet-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+}
+
+.fleet-list > li {
+  background: var(--surface-raised);
+  padding: var(--space-3) var(--space-4);
+  display: grid;
+  gap: var(--space-2);
+  border-left: 3px solid transparent;
+}
+
+.bot-watch-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fleet-list .bot-watch-list > li {
+  display: block;
+  padding: var(--space-1) 0;
+  border: 0;
+}
+
+.fleet-list li[data-state="error"] {
+  border-left-color: var(--danger);
+  background: var(--danger-wash);
+}
+
+.fleet-list li[data-state="stopped"] {
+  border-left-color: var(--rule-strong);
+  color: var(--text-secondary);
+}
+
+.bot-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.bot-name {
+  font-weight: 600;
+  font-size: var(--text-base);
+}
+
+.bot-state {
+  font-family: var(--font-num);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid currentColor;
+  border-radius: var(--radius);
+  padding: 0 var(--space-2);
+  color: var(--text-muted);
+}
+
+.bot-state[data-state="error"] {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+.bot-state[data-state="running"] {
+  color: var(--state-live);
+}
+
+.bot-strategy {
+  font-family: var(--font-num);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* Pushed right so the money column lines up down the list. */
+.bot-pnl {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.bot-pnl[data-tone="pos"] {
+  color: var(--pnl-pos);
+}
+
+.bot-pnl[data-tone="neg"] {
+  color: var(--pnl-neg);
+}
+
+.bot-pnl[data-tone="flat"] {
+  color: var(--pnl-flat);
+}
+
+.bot-meta {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.bot-symbols {
+  color: var(--text-secondary);
+}
+
+/* Wraps rather than truncating. The exchange message is the actionable part,
+   and an ellipsis would cut off exactly the number worth reading. */
+.bot-error {
+  margin: 0;
+  font-family: var(--font-num);
+  font-size: var(--text-xs);
+  line-height: 1.55;
+  color: var(--danger);
+  background: var(--surface-sunken);
+  border-radius: var(--radius);
+  padding: var(--space-2) var(--space-3);
+  overflow-wrap: anywhere;
+}
+
+/* Margin posture, beside the strategy. Cross is picked out because it is the
+   mode where a bad position can reach the rest of the account. */
+.bot-margin {
+  font-family: var(--font-num);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.bot-margin[data-mode="CROSSED"] {
+  color: var(--state-degraded);
+  font-weight: 600;
+}
+
+/* Quiet until hovered. Dismissing is housekeeping, not an action worth drawing
+   the eye away from the error message beside it. */
+.bot-dismiss {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  padding: 1px var(--space-2);
+  cursor: pointer;
+}
+
+.bot-dismiss:hover:not(:disabled),
+.bot-dismiss:focus-visible {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}
+
+.bot-dismiss:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.fleet-pagination { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; padding: 16px 0; font-size: 12px; color: var(--text-secondary); }
+.fleet button { border: 1px solid var(--rule); border-radius: 4px; padding: 7px 12px; background: var(--surface-raised); color: var(--text-primary); cursor: pointer; }
+.fleet button:disabled { opacity: .5; cursor: wait; }
+
+.fleet-dismiss-all { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; font-size: 12px; }
