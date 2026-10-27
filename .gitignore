@@ -38,5 +38,6 @@ new strategies/
 tmp/
 *.mp4
 
-# Docs stay local
+# Docs and MT5 Expert Advisors stay local
 docs/
+mt5/
